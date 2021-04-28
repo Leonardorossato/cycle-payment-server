@@ -1,0 +1,24 @@
+{
+  "name": "cycle-payment-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Leonardo Adami",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "production": "pm2 start server.js --name cycle-payment-server"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-query-int": "^3.0.0",
+    "loadash": "^1.0.0",
+    "mongoose": "^5.12.6",
+    "mongoose-paginate": "^5.0.3",
+    "node-restful": "^0.2.6",
+    "pm2": "^4.5.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
