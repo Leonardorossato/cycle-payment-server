@@ -18,8 +18,16 @@ router.post('/add/payment', (req, res)=>{
             name: req.body.name,
             month: Number(req.body.month),
             year: Number(req.body.year),
-            credits: [],
-            debits: []
+            credits: [{
+                name: req.body.name,
+                value: Number(req.body.value)
+            }],
+            debits: [{
+                name: req.body.name,
+                value: Number(req.body.value),
+                status: req.body.status,
+                enum: ['PAIDOUT', 'PENDENT', 'SCHEDULED']
+            }]
         })
 
         payment.findOne().where(_payment).exec((err, data)=>{
