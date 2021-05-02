@@ -7,18 +7,18 @@ router.get('/', (req, res)=>{
         if(err){
             return res.status(500).json('Error to search the payments', err)
         }
-        return res.status(200).json('Payment find successful : ' +data)
+        return res.status(200).json(data)
     })
 })
 
 router.post('/add', (req, res)=>{
     const name = req.body.name;
-    const month = (req.body.month);
-    const year = (req.body.year);
+    const month = req.body.month;
+    const year = req.body.year;
     const credits = [{
         name: req.body.name,
-        value: req.body.value
-    }],
+        value: req.body.value,
+    }]
     debits = [{
         name: req.body.name,
         value: req.body.value,
@@ -29,8 +29,8 @@ router.post('/add', (req, res)=>{
         name,
         month,
         year,
-        credits:[],
-        debits:[]       
+        credits: [],
+        debits: []     
     });
 
     newPayment.save()
