@@ -15,12 +15,12 @@ router.post('/add', (req, res)=>{
     const name = req.body.name;
     const month = req.body.month;
     const year = req.body.year;
-    const credits = [{
-        name: req.body.name,
-        value: req.body.value,
+    let credits = [{
+        name: String(req.body.name),
+        value: Number(req.body.value),
     }]
-    debits = [{
-        name: req.body.name,
+    let debits = [{
+        name: String(req.body.name),
         value: req.body.value,
         status: req.body.status
     }]
@@ -29,8 +29,8 @@ router.post('/add', (req, res)=>{
         name,
         month,
         year,
-        credits: [],
-        debits: []     
+        credits: credits.map((credit) => {return {name: credit.name, value: credit.value}}),
+        debits: debits.map((debit) => {return {name: debit.name, value: debit.value, status: debit.status}})
     });
 
     newPayment.save()
