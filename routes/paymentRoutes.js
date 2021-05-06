@@ -1,9 +1,9 @@
 const express = require('express');
-const payment = require('../models/paymentModel')
+const Payment = require('../models/paymentModel')
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-    payment.find((err, data) =>{
+    Payment.find((err, data) =>{
         if(err){
             return res.status(500).json('Error to search the payments', err)
         }
@@ -12,25 +12,28 @@ router.get('/', (req, res)=>{
 })
 
 router.post('/add', (req, res)=>{
-    const name = req.body.name;
-    const month = req.body.month;
-    const year = req.body.year;
-    let credits = [{
-        name: String(req.body.name),
-        value: Number(req.body.value),
-    }]
-    let debits = [{
-        name: String(req.body.name),
-        value: req.body.value,
-        status: req.body.status
-    }]
+    let name = req.body.name;
+    let month = Number(req.body.month);
+    let year = Number(req.body.year);
+    let value = Number(req.body.value);
+    let status = req.body.status;
 
-    const newPayment = new payment({
+    let credit = {
+        name,
+        value
+    }
+
+    let debit = {
+       ...credit,
+        status
+    }
+
+    let newPayment = new Payment({
         name,
         month,
         year,
-        credits: credits.map((credit) => {return {name: credit.name, value: credit.value}}),
-        debits: debits.map((debit) => {return {name: debit.name, value: debit.value, status: debit.status}})
+        credits: [credit],
+        debits: [debit]
     });
 
     newPayment.save()
